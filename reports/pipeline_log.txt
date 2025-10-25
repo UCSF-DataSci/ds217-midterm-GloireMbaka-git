@@ -1,0 +1,19 @@
+Starting clinical trial data pipeline...
+Pipeline complete!
+Running q4_exploration.ipynb...
+[NbConvertApp] Converting notebook q4_exploration.ipynb to notebook
+[NbConvertApp] Writing 113144 bytes to executed_q4_exploration.ipynb
+✅ Successfully executed q4_exploration.ipynb
+Running q5_missing_data.ipynb...
+[NbConvertApp] Converting notebook q5_missing_data.ipynb to notebook
+[NbConvertApp] Writing 92672 bytes to executed_q5_missing_data.ipynb
+✅ Successfully executed q5_missing_data.ipynb
+Running q6_transformation.ipynb...
+[NbConvertApp] Converting notebook q6_transformation.ipynb to notebook
+[NbConvertApp] Writing 383010 bytes to executed_q6_transformation.ipynb
+✅ Successfully executed q6_transformation.ipynb
+Running q7_aggregation.ipynb...
+[NbConvertApp] Converting notebook q7_aggregation.ipynb to notebook
+[NbConvertApp] Writing 50297 bytes to executed_q7_aggregation.ipynb
+✅ Successfully executed q7_aggregation.ipynb
+🎉 Pipeline complete!

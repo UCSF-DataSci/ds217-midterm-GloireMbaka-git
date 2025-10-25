@@ -1,0 +1,93 @@
+.
+├── .git
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── config
+│   ├── description
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-checkout
+│   │   ├── post-commit
+│   │   ├── post-merge
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── pre-push
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── push-to-checkout.sample
+│   │   ├── sendemail-validate.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── lfs
+│   │   └── tmp
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       ├── heads
+│   │       │   └── main
+│   │       └── remotes
+│   │           └── origin
+│   │               └── HEAD
+│   ├── objects
+│   │   ├── 10
+│   │   │   └── 8349e422e9af2a7529e4e136a5da8d53edee95
+│   │   ├── 19
+│   │   │   └── 0beef0bdf533b476671bab85735f3cf990b7aa
+│   │   ├── 92
+│   │   │   └── 94fe42c8dacb95103ad250e7b0b750532c5bf6
+│   │   ├── ae
+│   │   │   └── f330e3570aecf645204155ea2f242816c63fb2
+│   │   ├── ba
+│   │   │   └── 9bf5a30a69c70653934cadcb3c19ceca1f06ac
+│   │   ├── c9
+│   │   │   └── efa3c6aecabc3700b1a154e3a47328d7e8ede5
+│   │   ├── info
+│   │   └── pack
+│   │       ├── pack-9060c6a2ba29e48a1974b61db0e1e7dedb5bac13.idx
+│   │       ├── pack-9060c6a2ba29e48a1974b61db0e1e7dedb5bac13.pack
+│   │       └── pack-9060c6a2ba29e48a1974b61db0e1e7dedb5bac13.rev
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       │   └── main
+│       ├── remotes
+│       │   └── origin
+│       │       └── HEAD
+│       └── tags
+├── .github
+│   ├── test
+│   │   ├── requirements.txt
+│   │   └── test_assignment.py
+│   └── workflows
+│       └── classroom.yml
+├── .gitignore
+├── GRADING_SPEC.md
+├── README.md
+├── __pycache__
+│   └── q3_data_utils.cpython-313.pyc
+├── data
+│   └── clinical_trial_raw.csv
+├── generate_data.py
+├── output
+├── q1_setup_project.sh
+├── q2_config.txt
+├── q2_process_metadata.py
+├── q3_data_utils.py
+├── q4_exploration.ipynb
+├── q5_missing_data.ipynb
+├── q6_transformation.ipynb
+├── q7_aggregation.ipynb
+├── q8_run_pipeline.sh
+├── reports
+│   └── directory_structure.txt
+└── requirements.txt
+
+32 directories, 59 files

@@ -1,103 +1,128 @@
-# TODO: Add shebang line: #!/usr/bin/env python3
-# Assignment 5, Question 2: Python Data Processing
-# Process configuration files for data generation.
+#!/usr/bin/env python3
+"""Assignment 5, Question 2: Python Data Processing
+Process configuration files for data generation.
+"""
+
+from typing import Dict
+import os
+import random
+import statistics
+import sys
 
 
 def parse_config(filepath: str) -> dict:
-    """
-    Parse config file (key=value format) into dictionary.
-
-    Args:
-        filepath: Path to q2_config.txt
-
-    Returns:
-        dict: Configuration as key-value pairs
-
-    Example:
-        >>> config = parse_config('q2_config.txt')
-        >>> config['sample_data_rows']
-        '100'
-    """
-    # TODO: Read file, split on '=', create dict
-    pass
+    """Parse Key = value config file into dictionary"""
+    config = {}
+    try:
+        with open(filepath, 'r') as f:
+            for line in f:
+                line = line.strip()
+                # Skip comments or empty lines
+                if not line or line.startswith('#'):
+                    continue
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    config[key.strip()] = value.strip()
+    except FileNotFoundError:
+        print(f"Error: Config file '{filepath}' not found.")
+        sys.exit(1)
+    return config
 
 
 def validate_config(config: dict) -> dict:
+    """Validate configuration values using if/elif/else logic
+
+    Returns a dict mapping config keys to boolean validity
     """
-    Validate configuration values using if/elif/else logic.
+    results = {}
 
-    Rules:
-    - sample_data_rows must be an int and > 0
-    - sample_data_min must be an int and >= 1
-    - sample_data_max must be an int and > sample_data_min
+    try:
+        rows = int(config.get("sample_data_rows", 0))
+        results["sample_data_rows"] = rows > 0
+    except (ValueError, TypeError):
+        results["sample_data_rows"] = False
 
-    Args:
-        config: Configuration dictionary
+    try:
+        min_val = int(config.get("sample_data_min", 0))
+        results["sample_data_min"] = min_val >= 1
+    except (ValueError, TypeError):
+        results["sample_data_min"] = False
 
-    Returns:
-        dict: Validation results {key: True/False}
+    try:
+        max_val = int(config.get("sample_data_max", 0))
+        # max must be greater than min
+        results["sample_data_max"] = max_val > int(config.get("sample_data_min", 0))
+    except (ValueError, TypeError):
+        results["sample_data_max"] = False
 
-    Example:
-        >>> config = {'sample_data_rows': '100', 'sample_data_min': '18', 'sample_data_max': '75'}
-        >>> results = validate_config(config)
-        >>> results['sample_data_rows']
-        True
-    """
-    # TODO: Implement with if/elif/else
-    pass
+    return results
 
 
 def generate_sample_data(filename: str, config: dict) -> None:
-    """
-    Generate a file with random numbers for testing, one number per row with no header.
-    Uses config parameters for number of rows and range.
+    """Generate CSV (one number per line) file with random numbers using config parameters"""
+    rows = int(config["sample_data_rows"])
+    min_val = int(config["sample_data_min"])
+    max_val = int(config["sample_data_max"])
 
-    Args:
-        filename: Output filename (e.g., 'sample_data.csv')
-        config: Configuration dictionary with sample_data_rows, sample_data_min, sample_data_max
+    dirpath = os.path.dirname(filename)
+    if dirpath:
+        os.makedirs(dirpath, exist_ok=True)
 
-    Returns:
-        None: Creates file on disk
-
-    Example:
-        >>> config = {'sample_data_rows': '100', 'sample_data_min': '18', 'sample_data_max': '75'}
-        >>> generate_sample_data('sample_data.csv', config)
-        # Creates file with 100 random numbers between 18-75, one per row
-        >>> import random
-        >>> random.randint(18, 75)  # Returns random integer between 18-75
-    """
-    # TODO: Parse config values (convert strings to int)
-    # TODO: Generate random numbers and save to file
-    # TODO: Use random module with config-specified range
-    pass
+    with open(filename, 'w') as f:
+        for _ in range(rows):
+            num = random.randint(min_val, max_val)
+            f.write(f"{num}\n")
 
 
 def calculate_statistics(data: list) -> dict:
-    """
-    Calculate basic statistics.
+    """Calculate basic statistics"""
+    stats = {}
+    if not data:
+        return {"mean": None, "median": None, "sum": 0, "count": 0}
 
-    Args:
-        data: List of numbers
-
-    Returns:
-        dict: {mean, median, sum, count}
-
-    Example:
-        >>> stats = calculate_statistics([10, 20, 30, 40, 50])
-        >>> stats['mean']
-        30.0
-    """
-    # TODO: Calculate stats
-    pass
+    stats["count"] = len(data)
+    stats["sum"] = sum(data)
+    stats["mean"] = round(statistics.mean(data), 2)
+    stats["median"] = statistics.median(data)
+    return stats
 
 
 if __name__ == '__main__':
-    # TODO: Test your functions with sample data
-    # Example:
-    # config = parse_config('q2_config.txt')
-    # validation = validate_config(config)
-    # generate_sample_data('data/sample_data.csv', config)
-    # 
-    # TODO: Read the generated file and calculate statistics
-    # TODO: Save statistics to output/statistics.txt
-    pass
+    config_file = "q2_config.txt"
+    data_file = "data/sample_data.csv"
+    stats_file = "output/statistics.txt"
+
+    # Step 1: Parse config
+    config = parse_config(config_file)
+
+    # Step 2: Validate config
+    validation = validate_config(config)
+    if not all(validation.values()):
+        print("Error: Invalid configuration values detected:")
+        for k, v in validation.items():
+            if not v:
+                print(f"  - {k} is invalid")
+        sys.exit(1)
+
+    # Step 3: Generate sample data
+    generate_sample_data(data_file, config)
+
+    # Step 4: Read generated data
+    with open(data_file, 'r') as f:
+        data = [int(line.strip()) for line in f if line.strip()]
+
+    # Step 5: Calculate statistics
+    stats = calculate_statistics(data)
+
+    # Step 6: Save statistics
+    stats_dir = os.path.dirname(stats_file)
+    if stats_dir:
+        os.makedirs(stats_dir, exist_ok=True)
+    with open(stats_file, 'w') as f:
+        for key, value in stats.items():
+            f.write(f"{key}: {value}\n")
+
+    print("✅ Data generation complete.")
+    print(f"- Sample data saved to: {data_file}")
+    print(f"- Statistics saved to: {stats_file}")
+
